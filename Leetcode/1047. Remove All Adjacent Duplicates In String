@@ -18,3 +18,39 @@ public:
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+
+(using string approach - more time complexity)
+
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        int n= s.length();
+        int count=0,i=0;
+        string ans="";
+        for( i=0;i<n;++i){
+            if( s[i]==s[i+1]){
+                i++;
+            }
+            else{
+                if(count!=0 && ans[count-1]==s[i]){
+                    ans.erase(--count);
+                   
+                }
+                else{
+                ans+=s[i];
+                count++;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
