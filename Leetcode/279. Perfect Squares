@@ -1,0 +1,19 @@
+## Perfect Squares
+
+
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> dp(n+1,INT_MAX);
+        int count=1;
+        dp[0]=0;
+        while(count*count<=n){
+            int squ=count*count;
+            for(int i=squ;i<n+1;i++){
+                dp[i]=min(dp[i-squ] + 1,dp[i]);
+            }
+            count++;
+        }
+    
+    return dp[n];}
+};
