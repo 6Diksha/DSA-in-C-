@@ -1,0 +1,51 @@
+##  Palindrome Linked List
+
+STACK APPROACH
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        stack<int> help;
+        int n=size(head);
+        int i=0;
+        
+        //if only 1 element is there
+        if(n==1) return true;
+        
+        //adding half no in stack
+        while(i<n/2){
+            help.push(head->val);
+            head=head->next;
+            i++;
+        }
+        
+        // if no.of elements are even bringing back i to mid+1
+        if(n%2 == 0){
+            i--;
+        }
+        while(head && i<n ){
+            if(head->val == help.top()){
+                help.pop();
+            }
+            head=head->next;
+        }
+        return help.empty();
+    }
+    
+    int size(ListNode* head){
+        if(head==NULL){
+            return 0;
+        }
+        return size(head->next)+1;
+    }
+};
