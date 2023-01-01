@@ -1,0 +1,52 @@
+#  Word Pattern (using hashmap)
+
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        unordered_map<char,string>chToString;
+        unordered_map<string,char>stringToCh;
+        string current_word="";
+        int ch=0;
+        s.push_back(' ');
+
+        for(int i=0;i<s.size();i++){
+            
+            if(s[i]==' '){
+
+                char character=pattern[ch];
+                ch++;
+
+                if(chToString.count(character)){
+
+                    string mappedWord=chToString[character];
+                    if(mappedWord!=current_word){
+                        // one character has multiple words mapped to it
+                        return false;
+                    }
+                }
+
+                else if(stringToCh.count(current_word)){
+
+                    char mappedCh=stringToCh[current_word];
+                    if(mappedCh!=character){
+                        // one string has multiple  char mapped to it
+                        return false;
+                    }
+                }
+
+                else{
+                    chToString[character]=current_word;
+                    stringToCh[current_word]=character;
+                }
+                current_word="";
+            }
+
+            else{
+                current_word.push_back(s[i]);
+            }
+        }
+
+        return (ch == pattern.size());
+    }
+};
