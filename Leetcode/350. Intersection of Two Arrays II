@@ -1,0 +1,22 @@
+##  Intersection of Two Arrays II
+hashmap
+
+
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int>help;
+        vector<int>ans;
+        for(int i=0; i<nums1.size(); ++i){
+            help[nums1[i]]++;
+        }
+        for(int i=0; i<nums2.size(); ++i){
+            if(help[nums2[i]]){
+                ans.push_back(nums2[i]);
+                help[nums2[i]]--;
+            }
+        }
+        return ans;
+    }
+};
