@@ -1,0 +1,83 @@
+160. Intersection of Two Linked Lists
+
+******APPROACH 1 - DIFFERNECE IN LENGTH **********
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int n=size(headA);
+        int m=size(headB);
+        int d=abs(m-n);
+        for(int i=0;i<d;i++){
+            if(m>n){
+                headB=headB->next;
+            }
+            else{
+                headA=headA->next;
+            }
+        }
+        while(headA!=NULL && headB!=NULL){
+            if(headA==headB){
+                return headA;
+            }
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return NULL;
+    }
+    
+    int size(ListNode *head){
+        if(!head){
+            return 0;
+        }
+        return size(head->next)+1;
+    }
+};
+
+
+
+****** APPROACH 2 - HASHTABLE **********
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_map<ListNode*,int>visited;
+        while(headA){
+            visited[headA]=1;
+            headA=headA->next;
+        }
+        while(headB){
+            if(visited.count(headB)){
+                return headB;
+            }
+            headB=headB->next;
+        }
+        return 0;
+        }
+};
+
+
+
+****** APPROACH 3 - USING 2 LOOPS **********
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        while(headA){
+            ListNode* temp=headB;
+            while(temp){
+                if(headA==temp){
+                    return headA;
+                }
+                temp=temp->next;
+            }
+            headA=headA->next;
+        }
+        return 0;
+    }
+};
