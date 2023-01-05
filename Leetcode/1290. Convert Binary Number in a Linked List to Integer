@@ -1,0 +1,61 @@
+1290. Convert Binary Number in a Linked List to Integer
+
+
+using stack
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        stack<int>help;
+        while(head){
+            help.push(head->val);
+            head=head->next;
+        }
+        int two_factor=1;
+        int num=0;
+        while(!help.empty()){
+            int temp=help.top();
+            help.pop();
+            num+=(temp*two_factor);
+            two_factor*=2;
+        }
+        return num;
+    }
+};
+
+
+
+
+recursive
+
+class Solution {
+public:
+    int getDecimalValue(ListNode* head, int res = 0) {
+        return head ? getDecimalValue(head->next, res * 2 + head->val) : res;
+    }
+};
+
+
+iterative
+
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        int res = 0;
+        while (head) {
+            res = res * 2 + head->val;
+            head = head->next;
+        }
+        return res;
+    }
+};
