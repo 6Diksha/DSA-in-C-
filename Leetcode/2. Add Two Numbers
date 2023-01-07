@@ -1,0 +1,52 @@
+2. Add Two Numbers
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* headA, ListNode* headB) {
+        int rem=0,sum=0;
+        ListNode* temp=headA;
+        ListNode* last;
+        while(temp){
+            if(headB){
+                sum=temp->val + headB->val + rem;
+                headB=headB->next;
+            }
+            else{
+                sum=temp->val +rem;
+            }
+            rem=sum/10;
+            temp->val=sum%10;
+            last=temp;
+            temp=temp->next;
+
+        }
+        while(headB){
+            sum=headB->val +rem;
+            rem=sum/10;
+            ListNode* node=new ListNode();
+            node->val=sum%10;
+            last->next=node;
+            last=node;
+            headB=headB->next;
+        }
+        if(rem!=0){
+            ListNode* node=new ListNode();
+            node->val=rem;
+            last->next=node;
+            last=node;
+        }
+        return headA;
+    }
+};
