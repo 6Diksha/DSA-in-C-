@@ -1,7 +1,6 @@
 ##  Palindrome Linked List
 
-STACK APPROACH
-
+******************REVERSING APPROACH***************************
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -15,35 +14,76 @@ STACK APPROACH
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
+        int n=size(head);
+        /* if(n<=1){
+            return true;
+        } */
+        int m;
+        if(n%2==0){
+            m=n/2;
+        }
+        else{
+            m=(n+1)/2;
+        }
+        ListNode*temp=head;
+        for(int i=0;i<m;i++){
+            temp=temp->next;
+        }
+        temp=reverse(temp);
+        while(temp){
+            if(head->val!=temp->val){
+                return false;
+            }
+            temp=temp->next;
+            head=head->next;
+        }
+        return true;
+    }
+
+    ListNode* reverse(ListNode* head){
+        if(!head || head->next==NULL){
+            return head;
+        }
+        ListNode* temp=reverse(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return temp;
+    }
+
+    int size(ListNode* head){
+        if(!head){
+            return 0;
+        }
+        return size(head->next)+1;
+    }
+};
+
+
+********************* STACK APPROACH **********************
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
         stack<int> help;
         int n=size(head);
-        int i=0;
-        
-        //if only 1 element is there
-        if(n==1) return true;
-        
-        //adding half no in stack
-        while(i<n/2){
+        for(int i=0; i<n/2 ; ++i){
             help.push(head->val);
             head=head->next;
-            i++;
         }
-        
-        // if no.of elements are even bringing back i to mid+1
-        if(n%2 == 0){
-            i--;
-        }
-        while(head && i<n ){
-            if(head->val == help.top()){
-                help.pop();
-            }
+        if(n%2!=0){
             head=head->next;
         }
-        return help.empty();
+        while(head){
+            if(head->val != help.top()){
+                return false;
+            }
+            help.pop();
+            head=head->next;
+        }
+        return true;
     }
-    
+
     int size(ListNode* head){
-        if(head==NULL){
+        if(!head){
             return 0;
         }
         return size(head->next)+1;
