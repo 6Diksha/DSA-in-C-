@@ -1,6 +1,5 @@
 # Remove Linked List Elements
 
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -14,25 +13,22 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        if(head==NULL) return NULL;
-        
-        ListNode *temp=head;
-        while( temp!= NULL && temp->next!=NULL){
-            if( temp->next->val == val){
-                temp->next = temp->next->next;
+        ListNode * temp=head;
+        while(temp && temp->next){
+            ListNode* next_node=temp->next;
+            if(next_node->val==val){
+                temp->next=next_node->next;
             }
             else{
-                temp=temp->next;
+                temp=next_node;
             }
         }
-        if(head->val == val){
-            head=head->next;
+        if(head && head->val==val){
+            return head->next;
         }
         return head;
     }
 };
-
-
 
 
 RECURSIVE 
