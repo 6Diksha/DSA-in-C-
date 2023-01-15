@@ -1,0 +1,24 @@
+58. Length of Last Word
+
+
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        stack<string> subWords;
+        s.push_back(' ');
+        int i=0;
+        string temp;
+        while(i<s.size()){
+            if(s[i]!=' '){
+                temp+=s[i];
+            }
+            else if(temp.size()!=0){
+                subWords.push(temp);
+                temp="";
+            }
+            i++;
+        }
+        string last=subWords.top();
+        return last.size();            
+        }
+    };
