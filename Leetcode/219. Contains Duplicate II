@@ -1,0 +1,19 @@
+219. Contains Duplicate II
+hashmap
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+     unordered_map<int,int>visited;
+     for(int i=0;i<nums.size();i++){
+         if(visited.count(nums[i])){
+             if(abs(visited[nums[i]]-i)<=k){
+                 return true;
+             }
+         }
+        visited[nums[i]]=i;
+        
+     }   
+     return false;
+    }
+};
