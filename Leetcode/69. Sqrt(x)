@@ -1,0 +1,18 @@
+69. Sqrt(x)
+
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        long int ans = 0;
+        return help(ans,x);
+    }
+
+    long int help( long int ans,int x){
+        if(x==ans*ans) return ans;
+        long int one= ans*ans;
+        long int two=(ans+1)*(ans+1);
+        if(x>one && x<two) return ans;
+        return help(ans+1,x);
+    }
+};
