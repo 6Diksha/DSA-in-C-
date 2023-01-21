@@ -1,0 +1,16 @@
+389. Find the Difference
+
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        unordered_map<char,int> visited;
+        for(char x:t) visited[x]++;
+        for(char x:s) visited[x]--;
+        for(auto x : visited) {
+            if(x.second)
+                return x.first;
+        }
+        return 'a';
+    }
+};
