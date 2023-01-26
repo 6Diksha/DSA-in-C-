@@ -1,0 +1,52 @@
+2545. Sort the Students by Their Kth Score
+****************** using hashmap & vector *********************
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        vector<int> help;
+        unordered_map<int,vector<int>> student;
+        int n=score.size();
+        for(int i=0;i<n;i++){
+            help.push_back(score[i][k]);
+            for(int j=0;j<score[i].size();j++){
+                student[score[i][k]].push_back(score[i][j]);
+            }
+        }
+        sort(help.begin(),help.end());
+        for(int i=0;i<n;i++){
+            for(int j=0;j<score[i].size();j++){
+                score[i][j]=student[help[n-1-i]][j];
+            }
+        }
+        return score;
+    }
+};
+
+******************* simple swap approach ******************
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        for(int i=0;i<score.size();i++){
+            int max=find_max(score,k,i);
+            if(max!=i){
+                for(int j=0;j<score[i].size();j++){
+                    int temp=score[i][j];
+                    score[i][j]=score[max][j];
+                    score[max][j]=temp;
+                }
+            }
+        }
+        return score;
+    }
+
+    int find_max(vector<vector<int>>& score, int k,int curr){
+        int max=0,max_i=0;
+        for(int i=curr;i<score.size();i++){
+            if(score[i][k]>max){
+                max=score[i][k];
+                max_i=i;
+            }
+        }
+        return max_i;
+    }
+};
