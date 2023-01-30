@@ -1,0 +1,13 @@
+1689. Partitioning Into Minimum Number Of Deci-Binary Numbers
+
+
+class Solution {
+public:
+    int minPartitions(string n) {
+        int max=n[0]-48;
+        for(char alp:n){
+            if(alp-48 > max) max=alp-48;
+        }
+        return max;
+    }
+};
