@@ -1,0 +1,36 @@
+1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+
+class Solution {
+public:
+    int isPrefixOfWord(string sentence, string searchWord) {
+        stack<string> word;
+        sentence.push_back(' ');
+        int i=0,w=0;
+        string temp="";
+        while(i<sentence.size()){
+            if(sentence[i]==' '){
+                word.push(temp);
+                temp="";
+                w++;
+            }
+            else{
+                temp+=sentence[i];
+            }
+            i++;
+        }
+        int ans=0;
+        while(!word.empty()){
+            string x=word.top();
+            word.pop();
+            int a=0;
+            for(int k=0;k<x.size();k++){
+                if(x[k]!=searchWord[k]) break;
+                a++;
+            }
+            if(a==searchWord.size()) ans=w;
+            w--;
+        }
+        if(ans!=0) return ans;
+        return -1;
+    }
+};
