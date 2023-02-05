@@ -1,0 +1,15 @@
+657. Robot Return to Origin
+
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        int a=0,b=0;
+        for(int i=0;i<moves.size();i++){
+            if(moves[i]=='U') b++;
+            else if(moves[i]=='D') b--;
+            else if(moves[i]=='L') a++;
+            else a--;
+        }
+        return (a==0 && b==0) ? true : false;
+    }
+};
