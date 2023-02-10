@@ -1,0 +1,22 @@
+11. Container With Most Water
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int water=0;
+        int n=height.size();
+        for(int i=0,j=n-1; j>i ;){
+            int current=min(height[i],height[j]);
+            current*=(j-i);
+            cout<<current<<endl;
+            water=max(current,water);
+            if(height[i]>height[j]){
+                j--;
+            }
+            else{
+                i++;
+            }
+        }
+        return water;
+    }
+};
